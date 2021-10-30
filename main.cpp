@@ -74,6 +74,30 @@ public:
     }
 };
 
+class cititor {
+    std::string nume;
+    std::string prenume;
+    int nrCartiImprumutate=0;
+    std::vector<carte> cartiImprumutate;
+public:
+    void imprumuta(carte opera) {
+        cartiImprumutate.push_back(opera);
+        nrCartiImprumutate++;
+    }
+
+
+    cititor(const std::string &nume, const std::string &prenume) : nume(nume), prenume(prenume) {}
+
+    friend std::ostream &operator<<(std::ostream &os, const cititor &cititor) {
+        os << "Cititorul " << cititor.nume << " " << cititor.prenume << " a imprumutat " << cititor.nrCartiImprumutate << " carti.";
+        return os;
+    }
+
+    ~cititor() {
+//        std::cout << "Destructor cititor";
+    }
+};
+
 int main() {
     carte c1{"Moara cu noroc", "epic", 1881};
     carte c2{"Ion", "epic", 1920};
@@ -85,5 +109,10 @@ int main() {
 
     curentLiterar cL1("realism", {a1, a2, a3});
     std::cout << cL1;
+
+    cititor A{"Ion", "Andrei"};
+    A.imprumuta(c1);
+    A.imprumuta(c2);
+    std::cout << A << '\n';
     return 0;
 }
