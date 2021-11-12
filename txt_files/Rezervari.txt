@@ -1,0 +1,3 @@
+Ion;Andrei;Ion;0;
+Ana;Maria;Ion;1;
+Ana;Maria;Moara cu noroc;1;

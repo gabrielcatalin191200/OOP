@@ -10,7 +10,13 @@ private:
     int anAparitie;
     bool disponibilitate = true;
 public:
+    Carte() = default;
+
     Carte(const std::string & numeCarte, const std::string & gen, int anAparitie);
+
+    Carte(const Carte & copie);
+
+    Carte & operator=(const Carte & copie);
 
     ~Carte() = default;
 

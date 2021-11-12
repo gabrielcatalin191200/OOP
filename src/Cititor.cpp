@@ -1,4 +1,6 @@
 #include <iostream>
+#include <fstream>
+#include <sstream>
 
 #include "../headers/Cititor.h"
 
@@ -22,12 +24,16 @@ std::ostream & operator<<(std::ostream & os, const Cititor & cititor) {
 }
 
 void Cititor::imprumuta(Carte & carte) {
-    if(carte.get_disponibilitate()) {
+    if(carte.get_disponibilitate()) { //daca nu este rezervata de altcineva sau nu se afla in posesia altcuiva
         cartiImprumutate.push_back(carte);
+        cartiCitite.push_back(carte);
         carte.set_disponibilitate(false);
-    }
-    else
+    } else if (verificaRezervare(carte)) { //se verifica daca exista o rezervare pe numele solicitantului si acesta indeplineste conditiile de imprumuta cartea in ordinea prioritatii
+        cartiImprumutate.push_back(carte);
+        cartiCitite.push_back(carte);
+    } else {
         std::cout << "Cartea \"" << carte.get_numeCarte() << "\" nu este disponibila.\n";
+    }
 }
 
 void Cititor::returneaza(Carte & carte) {
@@ -37,4 +43,68 @@ void Cititor::returneaza(Carte & carte) {
             cartiImprumutate.erase(cartiImprumutate.begin() + i);
         }
     }
+}
+
+void Cititor::rezerva(Carte & carte) {
+    carte.set_disponibilitate(false);
+
+    bool prioritate = true; // 0-prioritate scazuta, 1-prioritate mai mare(nu a citit cartea)
+
+    for (auto & i : this->cartiCitite) {
+        if (i.get_numeCarte() == carte.get_numeCarte()) {
+            prioritate = false;
+        }
+    }
+
+    std::ofstream out;
+    out.open("../txt_files/Rezervari.txt", std::fstream::app);
+
+    if (out.is_open()) {
+        out << this->nume << ';' << this->prenume << ';' << carte.get_numeCarte() << ';' << prioritate << ';' << '\n';
+    } else {
+        std::cerr << "ERROR!";
+    }
+}
+
+bool Cititor::verificaRezervare(const Carte &carte) {
+    std::fstream check;
+    check.open("../txt_files/Rezervari.txt", std::fstream::in);
+    std::string line;
+
+    bool ok1 = false; // semnaleaza existenta unei alte persoane care a rezervat cartea si are prioritate
+    bool ok2 = false; // semnaleaza existenta in lista de rezervari a persoanei care a facut solicitarea, dar fara prioritate
+    std::string tempNume, tempPrenume, tempNumeCarte, tempPrioritate;
+
+    while(std::getline(check, line)) {
+        std::istringstream iss(line);
+        std::string temp;
+
+        std::getline(iss, temp, ';');
+        tempNume = temp;
+
+        std::getline(iss, temp, ';');
+        tempPrenume = temp;
+
+        std::getline(iss, temp, ';');
+        tempNumeCarte = temp;
+
+        std::getline(iss, temp, ';');
+        tempPrioritate = temp;
+
+        if(tempNumeCarte == carte.get_numeCarte()) {
+            if(tempNume == this->nume && tempPrenume == this->prenume && tempPrioritate == "1") {
+                check.close(); //daca persoana care solicita imprumutul are si prioritate, se returneaza true
+                return true;
+            }
+            if(tempPrioritate == "1")
+                ok1 = true;
+            if(tempNume == this->nume && tempPrenume == this->prenume)
+                ok2 = true;
+        }
+    }
+    check.close();
+    if(ok1 == false || ok2 == true) //daca nu exista o persoana cu prioritate mai mare, iar solicitantul are rezervare, acesta poate imprumuta cartea
+        return true;
+    else
+        return false;
 }

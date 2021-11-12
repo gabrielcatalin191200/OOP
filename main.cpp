@@ -4,6 +4,7 @@
 #include "./headers/Cititor.h"
 
 int main() {
+
     Carte c1{"Moara cu noroc", "epic", 1881};
     Carte c2{"Ion", "epic", 1920};
     Carte c3{"O scrisoare pierduta", "dramatic", 1883};
@@ -19,19 +20,27 @@ int main() {
 //    std::cout << a1 << '\n' << a2 << '\n' << a3 << '\n';
 
     Cititor A{"Ion", "Andrei"};
-    A.imprumuta(c1);
+//    A.imprumuta(c1);
     A.imprumuta(c2);
-    std::cout << A << '\n';
+//    std::cout << A << '\n';
 
     A.returneaza(c2);
-    std::cout << A << '\n';
+//    std::cout << A << '\n';
 
     Cititor B{"Ana", "Maria"};
-    B.imprumuta(c3);
-    std::cout << B << '\n';
+//    B.imprumuta(c3);
+//    std::cout << B << '\n';
 
     Cititor C{"Andreea", "Ionescu"};
-    B.imprumuta(c3);
-    std::cout << C << '\n';
+//    C.imprumuta(c3);
+//    std::cout << C << '\n';
+
+    A.rezerva(c2);
+    B.rezerva(c2);
+    B.rezerva(c1);
+
+    B.imprumuta(c2);
+    std::cout << B << '\n';
+
     return 0;
 }
