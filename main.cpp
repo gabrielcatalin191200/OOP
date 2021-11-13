@@ -39,8 +39,8 @@ int main() {
     B.rezerva(c2);
     B.rezerva(c1);
 
-    B.imprumuta(c2);
-    std::cout << B << '\n';
+    A.imprumuta(c2);
+    std::cout << A << '\n';
 
     return 0;
 }

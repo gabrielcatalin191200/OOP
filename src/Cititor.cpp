@@ -71,8 +71,8 @@ bool Cititor::verificaRezervare(const Carte &carte) {
     check.open("../txt_files/Rezervari.txt", std::fstream::in);
     std::string line;
 
-    bool ok1 = false; // semnaleaza existenta unei alte persoane care a rezervat cartea si are prioritate
-    bool ok2 = false; // semnaleaza existenta in lista de rezervari a persoanei care a facut solicitarea, dar fara prioritate
+    bool rezervatDeAltcineva = false;
+    bool rezervatFaraPrioritate = false;
     std::string tempNume, tempPrenume, tempNumeCarte, tempPrioritate;
 
     while(std::getline(check, line)) {
@@ -97,14 +97,11 @@ bool Cititor::verificaRezervare(const Carte &carte) {
                 return true;
             }
             if(tempPrioritate == "1")
-                ok1 = true;
+                rezervatDeAltcineva = true;
             if(tempNume == this->nume && tempPrenume == this->prenume)
-                ok2 = true;
+                rezervatFaraPrioritate = true;
         }
     }
     check.close();
-    if(ok1 == false || ok2 == true) //daca nu exista o persoana cu prioritate mai mare, iar solicitantul are rezervare, acesta poate imprumuta cartea
-        return true;
-    else
-        return false;
+    return !rezervatDeAltcineva && rezervatFaraPrioritate;
 }
