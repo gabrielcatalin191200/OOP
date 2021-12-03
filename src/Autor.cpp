@@ -2,29 +2,36 @@
 
 #include "../headers/Autor.h"
 
-Autor::Autor(const std::string & _numeAutor, const std::vector<Carte> & _opere) {
-    this->numeAutor = _numeAutor;
-    this->opere = _opere;
+Autor::Autor(const std::string & numeAutor) {
+    this->numeAutor = numeAutor;
 }
 
-Autor::Autor(const Autor & copie) {
-    this->numeAutor = copie.numeAutor;
-    this->opere = copie.opere;
+Autor::Autor(const std::string & numeAutor, const std::vector<std::shared_ptr<Carte>> & opere) : numeAutor(numeAutor), opere(opere){}
+
+Autor::Autor(const Autor & copie) : numeAutor(copie.numeAutor){
+    for(const auto &carte: copie.opere)
+        opere.push_back(carte->clone());
 }
 
-Autor& Autor::operator=(const Autor & copie) {
-    this->numeAutor = copie.numeAutor;
-    this->opere = copie.opere;
+Autor &Autor::operator=(const Autor &copie) {
+    if(this != &copie) {
+        numeAutor = copie.numeAutor;
+        auto opereAux = std::vector <std::shared_ptr <Carte>>();
+        for(const auto &cantec: copie.opere) {
+            opereAux.push_back(cantec->clone());
+        }
+        opere = opereAux;
+    }
     return *this;
 }
 
-std::ostream & operator<<(std::ostream & out, const Autor & autor){
-    out << "Nume autor: " << autor.numeAutor << "\n   Opere:\n";
+std::ostream & operator<<(std::ostream & os, const Autor & autor){
+    os << "Nume autor: " << autor.numeAutor << "\n   Opere:\n";
     for(const auto & opera : autor.opere)
-        out << '\t' << opera;
-    return out;
+        os << '\t' << *opera;
+    return os;
 }
 
 void Autor::adaugaCarte(const Carte& carte) {
-    opere.push_back(carte);
+    opere.push_back(carte.clone());
 }

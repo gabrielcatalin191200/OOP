@@ -3,31 +3,31 @@
 
 #include <string>
 #include <vector>
+#include <memory>
 
 #include "./Carte.h"
 
 class Cititor {
 private:
+    const int id;
+    static int id_max;
     std::string nume;
     std::string prenume;
-    std::vector<Carte> cartiImprumutate;
-    std::vector<Carte> cartiCitite;
+    std::vector<std::shared_ptr<Carte>> cartiImprumutate;
+    std::vector<std::shared_ptr<Carte>> cartiCitite;
 public:
     Cititor() = default;
-
     Cititor(const std::string & nume, const std::string & prenume);
-
     ~Cititor() = default;
 
     friend std::ostream & operator<<(std::ostream & os, const Cititor & cititor);
 
     void imprumuta(Carte & carte);
-
     void returneaza(Carte & carte);
-
     void rezerva(Carte & carte);
-
     bool verificaRezervare(const Carte & carte);
+
+    static int getIdMax();
 };
 
 #endif //OOP_CITITOR_H

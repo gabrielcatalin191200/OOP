@@ -2,38 +2,47 @@
 
 #include "./headers/Autor.h"
 #include "./headers/Cititor.h"
+#include "./headers/VolumPoezii.h"
 
 int main() {
 
     Carte c1{"Moara cu noroc", "epic", 1881};
     Carte c2{"Ion", "epic", 1920};
     Carte c3{"O scrisoare pierduta", "dramatic", 1883};
-    Carte c4{"Mara", "nuvela", 1894};
+    Carte c4{"Mara", "epic", 1894};
+    Carte c5{"Sarmanul Dionis", "epic", 1872};
 
-//    std::cout << c1 << '\n' << c2 << '\n' << c3 << '\n';
+    Autor a2{"Ioan Slavici", {std::make_shared <Carte>(c1)}};
+    Autor a3{"Liviu Rebreanu", {std::make_shared <Carte>(c2)}};
+    Autor a4("Ion Luca Caragiale", {std::make_shared <Carte>(c3)});
+    a4.adaugaCarte(c4);
 
-    Autor a1{"Ioan Slavici", {c1}};
-    Autor a2{"Liviu Rebreanu", {c2}};
-    Autor a3("Ion Luca Caragiale", {c3});
-    a3.adaugaCarte(c4);
+    Poezie p1("Luceafarul", 1883, 392);
+    Poezie p2("Pe langa plopii fara sot", 1883, 44);
 
-//    std::cout << a1 << '\n' << a2 << '\n' << a3 << '\n';
+    VolumPoezii v1("Poesii", "liric", 1883, {p1});
+    v1.adaugaPoezie(p2);
+
+    Autor a1{"Mihai Eminescu", {std::make_shared <Carte>(v1), std::make_shared <Carte>(c5)}};
+
+    std::cout << a1 << '\n';
+    std::cout << v1 << '\n';
 
     Cititor A{"Ion", "Andrei"};
 //    A.imprumuta(c1);
-    A.imprumuta(c2);
+//    A.imprumuta(c2);
 //    std::cout << A << '\n';
 
     A.returneaza(c2);
 //    std::cout << A << '\n';
 
     Cititor B{"Ana", "Maria"};
-//    B.imprumuta(c3);
-//    std::cout << B << '\n';
+    B.imprumuta(c3);
+    std::cout << B << '\n';
 
     Cititor C{"Andreea", "Ionescu"};
-//    C.imprumuta(c3);
-//    std::cout << C << '\n';
+    C.imprumuta(c3);
+    std::cout << C << '\n';
 
     A.rezerva(c2);
     B.rezerva(c2);
@@ -41,6 +50,5 @@ int main() {
 
     A.imprumuta(c2);
     std::cout << A << '\n';
-
     return 0;
 }

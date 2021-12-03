@@ -3,23 +3,22 @@
 
 #include <string>
 #include <vector>
+#include <memory>
 
 #include "Carte.h"
 
 class Autor {
 private:
     std::string numeAutor;
-    std::vector<Carte> opere;
+    std::vector<std::shared_ptr<Carte>> opere;
 public:
-    Autor(const std::string & numeAutor, const std::vector<Carte> & opere);
-
+    Autor(const std::string & numeAutor);
+    Autor(const std::string & numeAutor, const std::vector<std::shared_ptr<Carte>> & opere);
     Autor(const Autor & copie);
-
     Autor & operator=(const Autor & copie);
-
     ~Autor() = default;
 
-    friend std::ostream & operator<<(std::ostream & out, const Autor & autor);
+    friend std::ostream & operator<<(std::ostream & os, const Autor & autor);
 
     void adaugaCarte(const Carte& carte);
 };

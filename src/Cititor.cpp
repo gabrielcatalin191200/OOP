@@ -4,41 +4,42 @@
 
 #include "../headers/Cititor.h"
 
-Cititor::Cititor(const std::string & _nume, const std::string & _prenume) {
-    this->nume = _nume;
-    this->prenume = _prenume;
+int Cititor::id_max = 1;
+
+Cititor::Cititor(const std::string & nume, const std::string & prenume) : id(id_max), nume(nume), prenume(prenume) {
+    id_max++;
 }
 
 std::ostream & operator<<(std::ostream & os, const Cititor & cititor) {
     if (cititor.cartiImprumutate.empty()){
-        os << "Cititorul " << cititor.nume << " " << cititor.prenume << " nu a imprumutat nicio carte!" << '\n';
+        os << "Cititorul " << cititor.id << ":" << cititor.nume << " " << cititor.prenume << " nu a imprumutat nicio carte!" << '\n';
     } else if (cititor.cartiImprumutate.size() == 1) {
-        os << "Cititorul " << cititor.nume << " " << cititor.prenume << " a imprumutat o carte:\n";
-        os << "\t-" << cititor.cartiImprumutate[0].get_numeCarte() << '\n';
+        os << "Cititorul " << cititor.id << ":" << cititor.nume << " " << cititor.prenume << " a imprumutat o carte:\n";
+        os << "\t-" << cititor.cartiImprumutate[0]->get_numeCarte() << '\n';
     } else {
-        os << "Cititorul " << cititor.nume << " " << cititor.prenume << " a imprumutat " << cititor.cartiImprumutate.size() << " carti:\n";
-        for (int i=0; i<cititor.cartiImprumutate.size(); i++)
-            os << "\t-" << cititor.cartiImprumutate[i].get_numeCarte() << '\n';
+        os << "Cititorul " << cititor.id << ":" << cititor.nume << " " << cititor.prenume << " a imprumutat " << cititor.cartiImprumutate.size() << " carti:\n";
+        for(int i=0; i<(int)cititor.cartiImprumutate.size(); i++)
+            os << "\t-" << cititor.cartiImprumutate[i]->get_numeCarte() << '\n';
     }
     return os;
 }
 
 void Cititor::imprumuta(Carte & carte) {
     if(carte.get_disponibilitate()) { //daca nu este rezervata de altcineva sau nu se afla in posesia altcuiva
-        cartiImprumutate.push_back(carte);
-        cartiCitite.push_back(carte);
+        cartiImprumutate.push_back(carte.clone());;
+        cartiCitite.push_back(carte.clone());;
         carte.set_disponibilitate(false);
     } else if (verificaRezervare(carte)) { //se verifica daca exista o rezervare pe numele solicitantului si acesta indeplineste conditiile de imprumuta cartea in ordinea prioritatii
-        cartiImprumutate.push_back(carte);
-        cartiCitite.push_back(carte);
+        cartiImprumutate.push_back(carte.clone());;
+        cartiCitite.push_back(carte.clone());;
     } else {
         std::cout << "Cartea \"" << carte.get_numeCarte() << "\" nu este disponibila.\n";
     }
 }
 
 void Cititor::returneaza(Carte & carte) {
-    for(int i=0; i < this->cartiImprumutate.size(); i++) {
-        if (this->cartiImprumutate[i].get_numeCarte() == carte.get_numeCarte()) {
+    for(int i=0; i < (int)this->cartiImprumutate.size(); i++) {
+        if (this->cartiImprumutate[i]->get_numeCarte() == carte.get_numeCarte()) {
             carte.set_disponibilitate(true);
             cartiImprumutate.erase(cartiImprumutate.begin() + i);
         }
@@ -51,7 +52,7 @@ void Cititor::rezerva(Carte & carte) {
     bool prioritate = true; // 0-prioritate scazuta, 1-prioritate mai mare(nu a citit cartea)
 
     for (auto & i : this->cartiCitite) {
-        if (i.get_numeCarte() == carte.get_numeCarte()) {
+        if (i->get_numeCarte() == carte.get_numeCarte()) {
             prioritate = false;
         }
     }
@@ -105,3 +106,8 @@ bool Cititor::verificaRezervare(const Carte &carte) {
     check.close();
     return !rezervatDeAltcineva && rezervatFaraPrioritate;
 }
+
+int Cititor::getIdMax() {
+    return id_max;
+}
+

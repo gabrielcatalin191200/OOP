@@ -1,11 +1,9 @@
-#include <iostream>
-
 #include "../headers/Carte.h"
 
-Carte::Carte(const std::string & _numeCarte, const std::string & _gen, int _anAparitie) {
-    this->numeCarte = _numeCarte;
-    this->gen = _gen;
-    this->anAparitie = _anAparitie;
+Carte::Carte(const std::string & numeCarte, const std::string & gen, int anAparitie) {
+    this->numeCarte = numeCarte;
+    this->gen = gen;
+    this->anAparitie = anAparitie;
 }
 
 Carte::Carte(const Carte &copie) {
@@ -38,4 +36,12 @@ void Carte::set_disponibilitate(bool _disponibilitate) {
 
 std::string Carte::get_numeCarte() const {
     return numeCarte;
+}
+
+std::shared_ptr<Carte> Carte::clone() const {
+    return std::make_shared <Carte>(*this);
+}
+
+Carte::~Carte() {
+//    std::cout << "Destructor carte\n";
 }
