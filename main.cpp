@@ -3,18 +3,21 @@
 #include "./headers/Autor.h"
 #include "./headers/Cititor.h"
 #include "./headers/VolumPoezii.h"
+#include "./headers/Roman.h"
+#include "./headers/Nuvela.h"
+#include "./headers/PiesaDeTeatru.h"
 
 int main() {
 
-    Carte c1{"Moara cu noroc", "epic", 1881};
-    Carte c2{"Ion", "epic", 1920};
-    Carte c3{"O scrisoare pierduta", "dramatic", 1883};
-    Carte c4{"Mara", "epic", 1894};
-    Carte c5{"Sarmanul Dionis", "epic", 1872};
+    Nuvela c1{"Moara cu noroc", "epic", 1881, 384};
+    Roman c2{"Ion", "epic", 1920, 13};
+    PiesaDeTeatru c3{"O scrisoare pierduta", "dramatic", 1883, 4};
+    Roman c4{"Mara", "epic", 1894, 21};
+    Nuvela c5{"Sarmanul Dionis", "epic", 1872, 176};
 
-    Autor a2{"Ioan Slavici", {std::make_shared <Carte>(c1)}};
-    Autor a3{"Liviu Rebreanu", {std::make_shared <Carte>(c2)}};
-    Autor a4("Ion Luca Caragiale", {std::make_shared <Carte>(c3)});
+    Autor a2{"Ioan Slavici", {std::make_shared <Nuvela>(c1)}};
+    Autor a3{"Liviu Rebreanu", {std::make_shared <Roman>(c2)}};
+    Autor a4("Ion Luca Caragiale", {std::make_shared <PiesaDeTeatru>(c3)});
     a4.adaugaCarte(c4);
 
     Poezie p1("Luceafarul", 1883, 392);
@@ -23,10 +26,10 @@ int main() {
     VolumPoezii v1("Poesii", "liric", 1883, {p1});
     v1.adaugaPoezie(p2);
 
-    Autor a1{"Mihai Eminescu", {std::make_shared <Carte>(v1), std::make_shared <Carte>(c5)}};
+    Autor a1{"Mihai Eminescu", {std::make_shared <VolumPoezii>(v1), std::make_shared <Nuvela>(c5)}};
 
     std::cout << a1 << '\n';
-    std::cout << v1 << '\n';
+//    std::cout << v1 << '\n';
 
     Cititor A{"Ion", "Andrei"};
 //    A.imprumuta(c1);

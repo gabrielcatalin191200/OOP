@@ -8,12 +8,10 @@ VolumPoezii::~VolumPoezii() {
 //    std::cout << "Destructor VolumPoezii";
 }
 
-std::ostream &operator<<(std::ostream& os, const VolumPoezii& volum) {
-    os << "Nume carte: " << volum.numeCarte << "\tGen: " << volum.gen << "\tAn aparitie: " << volum.anAparitie << " si contine:\n";
-    for(const auto & poezie : volum.poezii)
-        os << '\t' << poezie;
-    return os;
-}
+//std::ostream &operator<<(std::ostream& os, const VolumPoezii& volum) {
+//    volum.afis(os);
+//    return os;
+//}
 
 void VolumPoezii::adaugaPoezie(const Poezie &poezie) {
     poezii.push_back(poezie);
@@ -21,5 +19,13 @@ void VolumPoezii::adaugaPoezie(const Poezie &poezie) {
 
 std::shared_ptr<Carte> VolumPoezii::clone() const {
     return std::make_shared<VolumPoezii>(*this);
+}
+
+void VolumPoezii::afis(std::ostream &os) const {
+    const auto &volum = *this;
+    Carte::afis(os);
+    os << ". Contine " << volum.poezii.size() << " poezii:\n";
+    for(const auto & poezie : volum.poezii)
+        os << "\t\t" << poezie;
 }
 

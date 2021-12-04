@@ -22,7 +22,8 @@ Carte& Carte::operator=(const Carte & copie) {
 }
 
 std::ostream & operator<<(std::ostream & os, const Carte & carte) {
-    os << "Nume carte: " << carte.numeCarte << "\tGen: " << carte.gen << "\tAn aparitie: " << carte.anAparitie << "\n";
+    carte.afis(os);
+    os << '\n';
     return os;
 }
 
@@ -38,10 +39,11 @@ std::string Carte::get_numeCarte() const {
     return numeCarte;
 }
 
-std::shared_ptr<Carte> Carte::clone() const {
-    return std::make_shared <Carte>(*this);
-}
-
 Carte::~Carte() {
 //    std::cout << "Destructor carte\n";
+}
+
+void Carte::afis(std::ostream &os) const {
+    const auto &carte = *this;
+    os << "Cartea se numeste " << carte.numeCarte << " apartine genului " << carte.gen << " si a aparut in anul " << carte.anAparitie;
 }

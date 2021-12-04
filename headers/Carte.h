@@ -17,7 +17,7 @@ public:
     Carte(const std::string & numeCarte, const std::string & gen, int anAparitie);
     Carte(const Carte & copie);
     Carte & operator=(const Carte & copie);
-    virtual ~Carte();
+    virtual ~Carte() = 0;
 
     friend std::ostream & operator<<(std::ostream & os, const Carte & carte);
 
@@ -26,7 +26,8 @@ public:
 
     std::string get_numeCarte() const;
 
-    virtual std::shared_ptr<Carte> clone() const;
+    virtual std::shared_ptr<Carte> clone() const = 0;
+    virtual void afis(std::ostream &os) const;
 };
 
 #endif //OOP_CARTE_H
