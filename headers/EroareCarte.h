@@ -2,6 +2,7 @@
 #define OOP_EROARECARTE_H
 
 #include <stdexcept>
+#include <string>
 
 class EroareCarte : public std::runtime_error {
 public:
