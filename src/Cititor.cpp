@@ -1,7 +1,3 @@
-#include <iostream>
-#include <fstream>
-#include <sstream>
-
 #include "../headers/Cititor.h"
 
 int Cititor::id_max = 1;
@@ -63,10 +59,12 @@ void Cititor::rezerva(Carte & carte) {
     out.open("../txt_files/Rezervari.txt", std::fstream::app);
 
     if (out.is_open()) {
-        out << this->nume << ';' << this->prenume << ';' << carte.get_numeCarte() << ';' << prioritate << ';' << '\n';
+        out << this->nume << ';' << this->prenume << ';' << carte.get_numeCarte() << ';' << prioritate << '\n';
     } else {
         std::cerr << "ERROR!";
     }
+
+    out.close();
 }
 
 bool Cititor::verificaRezervare(const Carte &carte) {
@@ -91,7 +89,7 @@ bool Cititor::verificaRezervare(const Carte &carte) {
         std::getline(iss, temp, ';');
         tempNumeCarte = temp;
 
-        std::getline(iss, temp, ';');
+        std::getline(iss, temp, '\n');
         tempPrioritate = temp;
 
         if(tempNumeCarte == carte.get_numeCarte()) {
@@ -111,4 +109,18 @@ bool Cititor::verificaRezervare(const Carte &carte) {
 
 int Cititor::getIdMax() {
     return id_max;
+}
+
+void Cititor::cautaCarte(const std::string &cuvantCheie, const std::string &filtru) {
+    if(filtru == "nume carte") {
+        cautaNumeCarte(cuvantCheie);
+    } else if (filtru == "nume autor") {
+        cautaNumeAutor(cuvantCheie);
+    } else if (filtru == "gen") {
+        cautaGen(cuvantCheie);
+    } else if (filtru == "an aparitie") {
+        cautaAnAparitie(cuvantCheie);
+    } else {
+        std::cout << "Cautarea nu se poate realiza";
+    }
 }

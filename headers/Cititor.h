@@ -9,6 +9,7 @@
 #include <sstream>
 
 #include "./Carte.h"
+#include "./Cautare.h"
 
 class Cititor {
 private:
@@ -19,7 +20,6 @@ private:
     std::vector<std::shared_ptr<Carte>> cartiImprumutate;
     std::vector<std::shared_ptr<Carte>> cartiCitite;
 public:
-    Cititor() = default;
     Cititor(const std::string & nume, const std::string & prenume);
     ~Cititor() = default;
 
@@ -31,6 +31,8 @@ public:
     bool verificaRezervare(const Carte & carte);
 
     static int getIdMax();
+
+    void cautaCarte(const std::string &cuvantCheie, const std::string &filtru);
 };
 
 #endif //OOP_CITITOR_H

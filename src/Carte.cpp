@@ -38,6 +38,14 @@ std::string Carte::get_numeCarte() const {
     return numeCarte;
 }
 
+std::string Carte::get_gen() const {
+    return gen;
+}
+
+int Carte::get_anAparitie() const {
+    return anAparitie;
+}
+
 Carte::~Carte() {
 //    std::cout << "Destructor carte\n";
 }

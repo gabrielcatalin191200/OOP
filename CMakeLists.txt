@@ -11,6 +11,6 @@ else()
     endif()
 endif()
 
-add_executable(OOP main.cpp src/Carte.cpp headers/Carte.h src/Autor.cpp headers/Autor.h src/Cititor.cpp headers/Cititor.h src/Poezie.cpp headers/Poezie.h src/VolumPoezii.cpp headers/VolumPoezii.h src/Roman.cpp headers/Roman.h src/Nuvela.cpp headers/Nuvela.h src/PiesaDeTeatru.cpp headers/PiesaDeTeatru.h src/EroareCarte.cpp headers/EroareCarte.h)
+add_executable(OOP main.cpp src/Carte.cpp headers/Carte.h src/Autor.cpp headers/Autor.h src/Cititor.cpp headers/Cititor.h src/Poezie.cpp headers/Poezie.h src/VolumPoezii.cpp headers/VolumPoezii.h src/Roman.cpp headers/Roman.h src/Nuvela.cpp headers/Nuvela.h src/PiesaDeTeatru.cpp headers/PiesaDeTeatru.h src/EroareCarte.cpp headers/EroareCarte.h src/Cautare.cpp headers/Cautare.h)
 
 install(TARGETS OOP DESTINATION bin)

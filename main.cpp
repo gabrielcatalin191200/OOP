@@ -18,7 +18,7 @@ int main() {
     Autor a2{"Ioan Slavici", {std::make_shared <Nuvela>(c1)}};
     Autor a3{"Liviu Rebreanu", {std::make_shared <Roman>(c2)}};
     Autor a4("Ion Luca Caragiale", {std::make_shared <PiesaDeTeatru>(c3)});
-    a4.adaugaCarte(c4);
+    a2.adaugaCarte(c4);
 
     Poezie p1("Luceafarul", 1883, 392);
     Poezie p2("Pe langa plopii fara sot", 1883, 44);
@@ -72,6 +72,18 @@ int main() {
     } catch (EroareCarte &error) {
         std::cout << error.what() << '\n';
     }
+
+    std::cout << "\n********************************************************************\n\n";
+
+    A.cautaCarte("Ion", "nume carte");
+    std::cout << '\n';
+    A.cautaCarte("Mihai Eminescu", "nume autor");
+    std::cout << '\n';
+    A.cautaCarte("liric", "gen");
+    std::cout << '\n';
+    A.cautaCarte("1883", "an aparitie");
+    std::cout << '\n';
+    A.cautaCarte("Lucian Blaga", "nume autor");
 
     return 0;
 }

@@ -1,12 +1,22 @@
-#include <iostream>
-
 #include "../headers/Autor.h"
 
 Autor::Autor(const std::string & numeAutor) {
     this->numeAutor = numeAutor;
 }
 
-Autor::Autor(const std::string & numeAutor, const std::vector<std::shared_ptr<Carte>> & opere) : numeAutor(numeAutor), opere(opere){}
+Autor::Autor(const std::string & numeAutor, const std::vector<std::shared_ptr<Carte>> & opere) : numeAutor(numeAutor), opere(opere) {
+    std::ofstream out;
+    out.open("../txt_files/ArhivaCarti.txt", std::fstream::app);
+
+    if(out.is_open()) {
+        for (const auto &carte : opere)
+            out << carte->get_numeCarte() << ';' << numeAutor << ';' << carte->get_gen() << ';' << carte->get_anAparitie() << '\n';
+    } else {
+        std::cerr << "ERROR!";
+    }
+
+    out.close();
+}
 
 Autor::Autor(const Autor & copie) : numeAutor(copie.numeAutor){
     for(const auto &carte: copie.opere)
@@ -34,4 +44,15 @@ std::ostream & operator<<(std::ostream & os, const Autor & autor){
 
 void Autor::adaugaCarte(const Carte& carte) {
     opere.push_back(carte.clone());
+
+    std::ofstream out;
+    out.open("../txt_files/ArhivaCarti.txt", std::fstream::app);
+
+    if(out.is_open()) {
+            out << carte.get_numeCarte() << ';' << numeAutor << ';' << carte.get_gen() << ';' << carte.get_anAparitie() << '\n';
+    } else {
+        std::cerr << "ERROR!";
+    }
+
+    out.close();
 }

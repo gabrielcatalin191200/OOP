@@ -27,6 +27,8 @@ public:
     void set_disponibilitate(bool disponibilitate);
 
     std::string get_numeCarte() const;
+    std::string get_gen() const;
+    int get_anAparitie() const;
 
     virtual std::shared_ptr<Carte> clone() const = 0;
     virtual void afis(std::ostream &os) const;
