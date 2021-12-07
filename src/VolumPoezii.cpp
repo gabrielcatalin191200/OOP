@@ -1,8 +1,14 @@
 #include "../headers/VolumPoezii.h"
 
-VolumPoezii::VolumPoezii(const std::string &numeCarte, const std::string &gen, int anAparitie) : Carte(numeCarte, gen, anAparitie) {}
+VolumPoezii::VolumPoezii(const std::string &numeCarte, const std::string &gen, int anAparitie) : Carte(numeCarte, gen, anAparitie) {
+    if(gen != "liric")
+        throw GenGresit();
+}
 
-VolumPoezii::VolumPoezii(const std::string &numeCarte, const std::string &gen, int anAparitie, const std::vector<Poezie> &poezii) : Carte(numeCarte, gen, anAparitie), poezii(poezii) {}
+VolumPoezii::VolumPoezii(const std::string &numeCarte, const std::string &gen, int anAparitie, const std::vector<Poezie> &poezii) : Carte(numeCarte, gen, anAparitie), poezii(poezii) {
+    if(gen != "liric")
+        throw GenGresit();
+}
 
 VolumPoezii::~VolumPoezii() {
 //    std::cout << "Destructor VolumPoezii";

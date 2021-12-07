@@ -1,6 +1,9 @@
 #include "../headers/PiesaDeTeatru.h"
 
-PiesaDeTeatru::PiesaDeTeatru(const std::string &numePiesa, const std::string &gen, int anAparitie, int numarActe) : Carte(numePiesa, gen, anAparitie), numarActe(numarActe) {}
+PiesaDeTeatru::PiesaDeTeatru(const std::string &numePiesa, const std::string &gen, int anAparitie, int numarActe) : Carte(numePiesa, gen, anAparitie), numarActe(numarActe) {
+    if(gen != "dramatic")
+        throw GenGresit();
+}
 
 PiesaDeTeatru::~PiesaDeTeatru() {
 //    std::cout << "Destructor PiesaDeTeatru";

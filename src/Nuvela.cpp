@@ -1,6 +1,9 @@
 #include "../headers/Nuvela.h"
 
-Nuvela::Nuvela(const std::string &numeNuvela, const std::string &gen, int anAparitie, int numarPagini) : Carte(numeNuvela, gen, anAparitie), numarPagini(numarPagini) {}
+Nuvela::Nuvela(const std::string &numeNuvela, const std::string &gen, int anAparitie, int numarPagini) : Carte(numeNuvela, gen, anAparitie), numarPagini(numarPagini) {
+    if(gen != "epic")
+        throw GenGresit();
+}
 
 Nuvela::~Nuvela() {
 //    std::cout << "Destructor Nuvela";

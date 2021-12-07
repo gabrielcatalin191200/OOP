@@ -1,6 +1,9 @@
 #include "../headers/Roman.h"
 
-Roman::Roman(const std::string &numeRoman, const std::string &gen, int anAparitie, int numarCapitole) : Carte(numeRoman, gen, anAparitie), numarCapitole(numarCapitole) {}
+Roman::Roman(const std::string &numeRoman, const std::string &gen, int anAparitie, int numarCapitole) : Carte(numeRoman, gen, anAparitie), numarCapitole(numarCapitole) {
+    if(gen != "epic")
+        throw GenGresit();
+}
 
 Roman::~Roman() {
 //    std::cout << "Destructor Roman";

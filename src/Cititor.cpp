@@ -42,8 +42,10 @@ void Cititor::returneaza(Carte & carte) {
         if (this->cartiImprumutate[i]->get_numeCarte() == carte.get_numeCarte()) {
             carte.set_disponibilitate(true);
             cartiImprumutate.erase(cartiImprumutate.begin() + i);
+            return; //in cazul in care a fost gasita cartea pe care vrem sa o returnam, nu mai continuam prin lista de carti imprumutate
         }
     }
+    throw CarteLipsa(); //daca am ajuns pana aici, inseamna ca nu exista cartea in lista cititorului
 }
 
 void Cititor::rezerva(Carte & carte) {
@@ -110,4 +112,3 @@ bool Cititor::verificaRezervare(const Carte &carte) {
 int Cititor::getIdMax() {
     return id_max;
 }
-

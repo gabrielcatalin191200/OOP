@@ -33,7 +33,7 @@ int main() {
 
     Cititor A{"Ion", "Andrei"};
 //    A.imprumuta(c1);
-//    A.imprumuta(c2);
+    A.imprumuta(c2);
 //    std::cout << A << '\n';
 
     A.returneaza(c2);
@@ -53,5 +53,25 @@ int main() {
 
     A.imprumuta(c2);
     std::cout << A << '\n';
+
+
+    try {
+        Roman c0{"Test", "epic", 2030, 5};
+    } catch (EroareCarte &error) {
+        std::cout << error.what() << '\n';
+    }
+
+    try {
+        PiesaDeTeatru c01{"Test", "epic", 2000, 5};
+    } catch (EroareCarte &error) {
+        std::cout << error.what() << '\n';
+    }
+
+    try {
+        A.returneaza(c5);
+    } catch (EroareCarte &error) {
+        std::cout << error.what() << '\n';
+    }
+
     return 0;
 }

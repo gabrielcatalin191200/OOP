@@ -5,6 +5,8 @@
 #include <string>
 #include <memory>
 
+#include "EroareCarte.h"
+
 class Carte {
 protected:
     std::string numeCarte;

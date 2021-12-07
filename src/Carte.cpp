@@ -1,9 +1,8 @@
 #include "../headers/Carte.h"
 
-Carte::Carte(const std::string & numeCarte, const std::string & gen, int anAparitie) {
-    this->numeCarte = numeCarte;
-    this->gen = gen;
-    this->anAparitie = anAparitie;
+Carte::Carte(const std::string & numeCarte, const std::string & gen, int anAparitie) : numeCarte(numeCarte), gen(gen), anAparitie(anAparitie) {
+    if(anAparitie > 2021)
+        throw AnGresit();
 }
 
 Carte::Carte(const Carte &copie) {
@@ -45,5 +44,5 @@ Carte::~Carte() {
 
 void Carte::afis(std::ostream &os) const {
     const auto &carte = *this;
-    os << "Cartea se numeste " << carte.numeCarte << " apartine genului " << carte.gen << " si a aparut in anul " << carte.anAparitie;
+    os << "Cartea se numeste \"" << carte.numeCarte << "\", apartine genului " << carte.gen << " si a aparut in anul " << carte.anAparitie;
 }
