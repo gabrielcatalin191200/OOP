@@ -124,3 +124,38 @@ void Cititor::cautaCarte(const std::string &cuvantCheie, const std::string &filt
         std::cout << "Cautarea nu se poate realiza";
     }
 }
+
+std::vector<CarteIndexata> Cititor::cauta(const std::vector<Filtru> filtre) {
+    std::vector<CarteIndexata> rezultat;
+
+    std::fstream check;
+    check.open("../txt_files/ArhivaCarti.txt", std::fstream::in);
+    std::string line;
+
+    std::string tempNumeCarte, tempNumeAutor, tempGen, tempAnAparitie;
+
+    while(std::getline(check, line)) {
+        std::istringstream iss(line);
+        std::string temp;
+
+        std::getline(iss, temp, ';');
+        tempNumeCarte = temp;
+
+        std::getline(iss, temp, ';');
+        tempNumeAutor = temp;
+
+        std::getline(iss, temp, ';');
+        tempGen = temp;
+
+        std::getline(iss, temp, '\n');
+        tempAnAparitie = temp;
+
+        rezultat.push_back(CarteIndexata(tempNumeCarte, tempNumeAutor, tempGen, tempAnAparitie));
+
+    }
+
+    for(Filtru filtru:filtre)
+        filtru.aplica(rezultat);
+
+    return rezultat;
+}

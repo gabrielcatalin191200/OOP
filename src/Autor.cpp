@@ -49,7 +49,7 @@ void Autor::adaugaCarte(const Carte& carte) {
     out.open("../txt_files/ArhivaCarti.txt", std::fstream::app);
 
     if(out.is_open()) {
-            out << carte.get_numeCarte() << ';' << numeAutor << ';' << carte.get_gen() << ';' << carte.get_anAparitie() << '\n';
+        out << carte.get_numeCarte() << ';' << numeAutor << ';' << carte.get_gen() << ';' << carte.get_anAparitie() << '\n';
     } else {
         std::cerr << "ERROR!";
     }

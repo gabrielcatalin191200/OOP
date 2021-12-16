@@ -1,11 +1,11 @@
 #include <iostream>
 
-#include "./headers/Autor.h"
-#include "./headers/Cititor.h"
-#include "./headers/VolumPoezii.h"
-#include "./headers/Roman.h"
-#include "./headers/Nuvela.h"
-#include "./headers/PiesaDeTeatru.h"
+#include "headers/Autor.h"
+#include "headers/Cititor.h"
+#include "headers/VolumPoezii.h"
+#include "headers/Roman.h"
+#include "headers/Nuvela.h"
+#include "headers/PiesaDeTeatru.h"
 
 int main() {
 
@@ -70,7 +70,7 @@ int main() {
     try {
         A.returneaza(c5);
     } catch (EroareCarte &error) {
-        std::cout << error.what() << '\n';
+
     }
 
     std::cout << "\n********************************************************************\n\n";
@@ -84,6 +84,10 @@ int main() {
     A.cautaCarte("1883", "an aparitie");
     std::cout << '\n';
     A.cautaCarte("Lucian Blaga", "nume autor");
+
+    std::vector<CarteIndexata> rezA;
+
+    A.cauta({Filtru("Nume Autor", "Mihai Eminescu")});
 
     return 0;
 }

@@ -8,8 +8,10 @@
 #include <fstream>
 #include <sstream>
 
-#include "./Carte.h"
-#include "./Cautare.h"
+#include "Carte.h"
+#include "Cautare.h"
+#include "CarteIndexata.h"
+#include "Filtru.h"
 
 class Cititor {
 private:
@@ -33,6 +35,8 @@ public:
     static int getIdMax();
 
     void cautaCarte(const std::string &cuvantCheie, const std::string &filtru);
+
+    std::vector<CarteIndexata> cauta(const std::vector<Filtru> filtre);
 };
 
 #endif //OOP_CITITOR_H
