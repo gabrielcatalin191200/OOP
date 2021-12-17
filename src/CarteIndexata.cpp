@@ -18,3 +18,7 @@ const std::string &CarteIndexata::getAnAparitieI() const {
     return anAparitieI;
 }
 
+std::ostream &operator<<(std::ostream &os, const CarteIndexata &carte) {
+    os << "Cartea " << carte.getNumeCarteI() << " scrisa de " << carte.getNumeAutorI() << " apartinand genului " << carte.getGenI() << " aparuta in anul " << carte.getAnAparitieI() << ".\n";
+    return os;
+}

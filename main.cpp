@@ -6,6 +6,7 @@
 #include "headers/Roman.h"
 #include "headers/Nuvela.h"
 #include "headers/PiesaDeTeatru.h"
+#include "headers/EroareFiltru.h"
 
 int main() {
 
@@ -54,40 +55,26 @@ int main() {
     A.imprumuta(c2);
     std::cout << A << '\n';
 
-
     try {
         Roman c0{"Test", "epic", 2030, 5};
-    } catch (EroareCarte &error) {
-        std::cout << error.what() << '\n';
-    }
-
-    try {
         PiesaDeTeatru c01{"Test", "epic", 2000, 5};
-    } catch (EroareCarte &error) {
-        std::cout << error.what() << '\n';
-    }
-
-    try {
         A.returneaza(c5);
     } catch (EroareCarte &error) {
-
+        std::cout << error.what() << '\n';
     }
 
     std::cout << "\n********************************************************************\n\n";
 
-    A.cautaCarte("Ion", "nume carte");
-    std::cout << '\n';
-    A.cautaCarte("Mihai Eminescu", "nume autor");
-    std::cout << '\n';
-    A.cautaCarte("liric", "gen");
-    std::cout << '\n';
-    A.cautaCarte("1883", "an aparitie");
-    std::cout << '\n';
-    A.cautaCarte("Lucian Blaga", "nume autor");
-
     std::vector<CarteIndexata> rezA;
 
-    A.cauta({Filtru("Nume Autor", "Mihai Eminescu")});
+    try {
+        rezA = A.cauta({Filtru("Nume autor", "Mihai Eminescu"), Filtru("Gen", "liric")});
+    } catch (EroareFiltru &error) {
+        std::cout << error.what() << '\n';
+    }
+
+    for (const auto& r:rezA)
+        std::cout << r;
 
     return 0;
 }

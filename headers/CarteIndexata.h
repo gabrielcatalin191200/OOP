@@ -18,6 +18,8 @@ public:
     const std::string &getNumeAutorI() const;
     const std::string &getGenI() const;
     const std::string &getAnAparitieI() const;
+
+    friend std::ostream &operator<<(std::ostream &os, const CarteIndexata &carte);
 };
 
 #endif //OOP_CARTEINDEXATA_H

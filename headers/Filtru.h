@@ -4,6 +4,7 @@
 #include <vector>
 #include <memory>
 #include "CarteIndexata.h"
+#include "EroareFiltru.h"
 
 class Filtru {
 private:
@@ -11,7 +12,7 @@ private:
     std::string keyWord;
 public:
     Filtru(const std::string &tipCautare, const std::string &keyWord);
-    void aplica(std::vector<CarteIndexata> &rezultat);
+    std::vector<CarteIndexata> aplica(std::vector<CarteIndexata> &rezultat);
 };
 
 #endif //OOP_FILTRU_H

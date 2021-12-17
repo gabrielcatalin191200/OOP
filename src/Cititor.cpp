@@ -111,20 +111,6 @@ int Cititor::getIdMax() {
     return id_max;
 }
 
-void Cititor::cautaCarte(const std::string &cuvantCheie, const std::string &filtru) {
-    if(filtru == "nume carte") {
-        cautaNumeCarte(cuvantCheie);
-    } else if (filtru == "nume autor") {
-        cautaNumeAutor(cuvantCheie);
-    } else if (filtru == "gen") {
-        cautaGen(cuvantCheie);
-    } else if (filtru == "an aparitie") {
-        cautaAnAparitie(cuvantCheie);
-    } else {
-        std::cout << "Cautarea nu se poate realiza";
-    }
-}
-
 std::vector<CarteIndexata> Cititor::cauta(const std::vector<Filtru> filtre) {
     std::vector<CarteIndexata> rezultat;
 
@@ -155,7 +141,10 @@ std::vector<CarteIndexata> Cititor::cauta(const std::vector<Filtru> filtre) {
     }
 
     for(Filtru filtru:filtre)
-        filtru.aplica(rezultat);
+        rezultat = filtru.aplica(rezultat);
+
+    if(rezultat.empty())
+        std::cout << "Obiectul cautat nu exista";
 
     return rezultat;
 }
