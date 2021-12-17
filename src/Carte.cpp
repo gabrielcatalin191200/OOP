@@ -1,7 +1,13 @@
 #include "../headers/Carte.h"
 
 Carte::Carte(const std::string & numeCarte, const std::string & gen, int anAparitie) : numeCarte(numeCarte), gen(gen), anAparitie(anAparitie) {
-    if(anAparitie > 2021)
+
+    std::time_t t = std::time(nullptr);
+    std::tm *const pTInfo = std::localtime(&t);
+
+    int anCurent = 1900 + pTInfo->tm_year;
+
+    if(anAparitie > anCurent)
         throw AnGresit();
 }
 

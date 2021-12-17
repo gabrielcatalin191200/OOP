@@ -56,7 +56,7 @@ int main() {
     std::cout << A << '\n';
 
     try {
-        Roman c0{"Test", "epic", 2030, 5};
+        Roman c0{"Test", "epic", 2022, 5};
         PiesaDeTeatru c01{"Test", "epic", 2000, 5};
         A.returneaza(c5);
     } catch (EroareCarte &error) {

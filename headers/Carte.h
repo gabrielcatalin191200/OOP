@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include <memory>
+#include <ctime>
 
 #include "EroareCarte.h"
 
