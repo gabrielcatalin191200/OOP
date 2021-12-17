@@ -11,6 +11,10 @@ else()
     endif()
 endif()
 
+find_package(Threads REQUIRED)
+
 add_executable(OOP main.cpp src/Carte.cpp headers/Carte.h src/Autor.cpp headers/Autor.h src/Cititor.cpp headers/Cititor.h src/Poezie.cpp headers/Poezie.h src/VolumPoezii.cpp headers/VolumPoezii.h src/Roman.cpp headers/Roman.h src/Nuvela.cpp headers/Nuvela.h src/PiesaDeTeatru.cpp headers/PiesaDeTeatru.h src/EroareCarte.cpp headers/EroareCarte.h src/CarteIndexata.cpp headers/CarteIndexata.h src/Filtru.cpp headers/Filtru.h src/EroareFiltru.cpp headers/EroareFiltru.h headers/csv.hpp)
+
+target_link_libraries(OOP PRIVATE Threads::Threads)
 
 install(TARGETS OOP DESTINATION bin)
