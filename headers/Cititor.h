@@ -11,6 +11,7 @@
 #include "Carte.h"
 #include "CarteIndexata.h"
 #include "Filtru.h"
+#include "csv.hpp"
 
 class Cititor {
 private:

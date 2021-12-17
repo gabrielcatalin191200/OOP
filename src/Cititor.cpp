@@ -56,10 +56,10 @@ void Cititor::rezerva(Carte & carte) {
     }
 
     std::ofstream out;
-    out.open("../txt_files/Rezervari.txt", std::fstream::app);
+    out.open("../txt_files/Rezervari.csv", std::fstream::app);
 
     if (out.is_open()) {
-        out << this->nume << ';' << this->prenume << ';' << carte.get_numeCarte() << ';' << prioritate << '\n';
+        out << this->nume << ',' << this->prenume << ',' << carte.get_numeCarte() << ',' << prioritate << '\n';
     } else {
         std::cerr << "ERROR!";
     }
@@ -68,42 +68,23 @@ void Cititor::rezerva(Carte & carte) {
 }
 
 bool Cititor::verificaRezervare(const Carte &carte) {
-    std::fstream check;
-    check.open("../txt_files/Rezervari.txt", std::fstream::in);
-    std::string line;
-
     bool rezervatDeAltcineva = false;
     bool rezervatFaraPrioritate = false;
-    std::string tempNume, tempPrenume, tempNumeCarte, tempPrioritate;
 
-    while(std::getline(check, line)) {
-        std::istringstream iss(line);
-        std::string temp;
+    csv::CSVReader reader("../txt_files/Rezervari.csv");
 
-        std::getline(iss, temp, ';');
-        tempNume = temp;
-
-        std::getline(iss, temp, ';');
-        tempPrenume = temp;
-
-        std::getline(iss, temp, ';');
-        tempNumeCarte = temp;
-
-        std::getline(iss, temp, '\n');
-        tempPrioritate = temp;
-
-        if(tempNumeCarte == carte.get_numeCarte()) {
-            if(tempNume == this->nume && tempPrenume == this->prenume && tempPrioritate == "1") {
-                check.close(); //daca persoana care solicita imprumutul are si prioritate, se returneaza true
+    for(csv::CSVRow &row : reader) {
+        if (row["numeCarte"].get<>() == carte.get_numeCarte()) {
+            if (row["nume"].get<>() == this->nume && row["prenume"].get<>() == this->prenume && row["prioritate"].get<>() == "1") {
                 return true;
             }
-            if(tempPrioritate == "1")
-                rezervatDeAltcineva = true;
-            if(tempNume == this->nume && tempPrenume == this->prenume)
-                rezervatFaraPrioritate = true;
         }
+        if(row["prioritate"].get<>() == "1")
+            rezervatDeAltcineva = true;
+        if (row["nume"].get<>() == this->nume && row["prenume"].get<>() == this->prenume)
+            rezervatFaraPrioritate = true;
     }
-    check.close();
+
     return !rezervatDeAltcineva && rezervatFaraPrioritate;
 }
 
@@ -114,30 +95,10 @@ int Cititor::getIdMax() {
 std::vector<CarteIndexata> Cititor::cauta(const std::vector<Filtru> filtre) {
     std::vector<CarteIndexata> rezultat;
 
-    std::fstream check;
-    check.open("../txt_files/ArhivaCarti.txt", std::fstream::in);
-    std::string line;
+    csv::CSVReader reader1("../txt_files/ArhivaCarti.csv");
 
-    std::string tempNumeCarte, tempNumeAutor, tempGen, tempAnAparitie;
-
-    while(std::getline(check, line)) {
-        std::istringstream iss(line);
-        std::string temp;
-
-        std::getline(iss, temp, ';');
-        tempNumeCarte = temp;
-
-        std::getline(iss, temp, ';');
-        tempNumeAutor = temp;
-
-        std::getline(iss, temp, ';');
-        tempGen = temp;
-
-        std::getline(iss, temp, '\n');
-        tempAnAparitie = temp;
-
-        rezultat.push_back(CarteIndexata(tempNumeCarte, tempNumeAutor, tempGen, tempAnAparitie));
-
+    for (csv::CSVRow &row : reader1) {
+        rezultat.emplace_back(row["numeCarte"].get<>(), row["numeAutor"].get<>(), row["gen"].get<>(), row["anAparitie"].get<>());
     }
 
     for(Filtru filtru:filtre)
