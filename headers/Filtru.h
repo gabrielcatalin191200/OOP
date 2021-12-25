@@ -12,7 +12,10 @@ private:
     std::string keyWord;
 public:
     Filtru(const std::string &tipCautare, const std::string &keyWord);
-    std::vector<CarteIndexata> aplica(std::vector<CarteIndexata> &rezultat);
+
+    const std::string &getTipCautare() const;
+
+    const std::string &getKeyWord() const;
 };
 
 #endif //OOP_FILTRU_H

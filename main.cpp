@@ -69,12 +69,13 @@ int main() {
 
     try {
         rezA = A.cauta({Filtru("Nume autor", "Mihai Eminescu"), Filtru("Gen", "liric")});
+
+        for (const auto& r:rezA)
+            std::cout << r;
+
     } catch (EroareFiltru &error) {
         std::cout << error.what() << '\n';
     }
-
-    for (const auto& r:rezA)
-        std::cout << r;
 
     return 0;
 }

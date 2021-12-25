@@ -6,12 +6,14 @@
 #include <memory>
 #include <iostream>
 #include <fstream>
-#include <sstream>
 
 #include "Carte.h"
 #include "CarteIndexata.h"
 #include "Filtru.h"
 #include "csv.hpp"
+#include "SearchStrategy.h"
+#include "CarteIndexata.h"
+#include "EroareFiltru.h"
 
 class Cititor {
 private:

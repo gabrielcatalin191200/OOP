@@ -92,7 +92,7 @@ int Cititor::getIdMax() {
     return id_max;
 }
 
-std::vector<CarteIndexata> Cititor::cauta(const std::vector<Filtru> filtre) {
+std::vector<CarteIndexata> Cititor::cauta(std::vector<Filtru> filtre) {
     std::vector<CarteIndexata> rezultat;
 
     csv::CSVReader reader1("../txt_files/ArhivaCarti.csv");
@@ -101,11 +101,30 @@ std::vector<CarteIndexata> Cititor::cauta(const std::vector<Filtru> filtre) {
         rezultat.emplace_back(row["numeCarte"].get<>(), row["numeAutor"].get<>(), row["gen"].get<>(), row["anAparitie"].get<>());
     }
 
-    for(Filtru filtru:filtre)
-        rezultat = filtru.aplica(rezultat);
+    SearchStrategy* SearchObject = nullptr;
 
-    if(rezultat.empty())
-        std::cout << "Obiectul cautat nu exista";
+    do {
+        if(filtre[0].getTipCautare() == "Nume carte")
+            SearchObject = new CautareNumeCarte;
+        else if (filtre[0].getTipCautare() == "Nume autor")
+            SearchObject = new CautareNumeAutor;
+        else if (filtre[0].getTipCautare() == "An aparitie")
+            SearchObject = new CautareAnAparitie;
+        else if (filtre[0].getTipCautare() == "Gen")
+            SearchObject = new CautareGen;
+        else
+            throw FiltruInvalid();
+
+        if(SearchObject != nullptr) {
+            rezultat = SearchObject->Cautare(filtre[0].getKeyWord(), rezultat);
+            filtre.erase(filtre.begin());
+            delete SearchObject;
+            SearchObject = nullptr;
+        }
+    } while(!filtre.empty());
+
+        if(rezultat.empty())
+            std::cout << "Obiectul cautat nu exista";
 
     return rezultat;
 }
