@@ -16,9 +16,9 @@ int main() {
     Roman c4{"Mara", "epic", 1894, 21};
     Nuvela c5{"Sarmanul Dionis", "epic", 1872, 176};
 
-    Autor a2{"Ioan Slavici", {std::make_shared <Nuvela>(c1)}};
-    Autor a3{"Liviu Rebreanu", {std::make_shared <Roman>(c2)}};
-    Autor a4("Ion Luca Caragiale", {std::make_shared <PiesaDeTeatru>(c3)});
+    Autor<std::string> a2{"Ioan Slavici", {std::make_shared <Nuvela>(c1)}};
+    Autor<std::string> a3{"Liviu Rebreanu", {std::make_shared <Roman>(c2)}};
+    Autor<std::string> a4("Ion Luca Caragiale", {std::make_shared <PiesaDeTeatru>(c3)});
     a2.adaugaCarte(c4);
 
     Poezie p1("Luceafarul", 1883, 392);
@@ -27,9 +27,9 @@ int main() {
     VolumPoezii v1("Poesii", "liric", 1883, {p1});
     v1.adaugaPoezie(p2);
 
-    Autor a1{"Mihai Eminescu", {std::make_shared <VolumPoezii>(v1), std::make_shared <Nuvela>(c5)}};
+    Autor<std::string> a1{"Mihai Eminescu", {std::make_shared <VolumPoezii>(v1), std::make_shared <Nuvela>(c5)}};
 
-    std::cout << a1 << '\n';
+//    std::cout << a1 << '\n';
 //    std::cout << v1 << '\n';
 
     Cititor A{"Ion", "Andrei"};

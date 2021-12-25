@@ -1,10 +1,12 @@
 #include "../headers/Autor.h"
 
-Autor::Autor(const std::string & numeAutor) {
+template<typename T>
+Autor<T>::Autor(const T& numeAutor) {
     this->numeAutor = numeAutor;
 }
 
-Autor::Autor(const std::string & numeAutor, const std::vector<std::shared_ptr<Carte>> & opere) : numeAutor(numeAutor), opere(opere) {
+template<typename T>
+Autor<T>::Autor(const T & numeAutor, const std::vector<std::shared_ptr<Carte>> & opere) : numeAutor(numeAutor), opere(opere) {
     std::ofstream out;
     out.open("../txt_files/ArhivaCarti.csv", std::fstream::app);
 
@@ -14,16 +16,17 @@ Autor::Autor(const std::string & numeAutor, const std::vector<std::shared_ptr<Ca
     } else {
         std::cerr << "ERROR!";
     }
-
     out.close();
 }
 
-Autor::Autor(const Autor & copie) : numeAutor(copie.numeAutor){
+template<typename T>
+Autor<T>::Autor(const Autor<T> & copie) : numeAutor(copie.numeAutor){
     for(const auto &carte: copie.opere)
         opere.push_back(carte->clone());
 }
 
-Autor &Autor::operator=(const Autor &copie) {
+template<typename T>
+Autor<T> &Autor<T>::operator=(const Autor<T> &copie) {
     if(this != &copie) {
         numeAutor = copie.numeAutor;
         auto opereAux = std::vector <std::shared_ptr <Carte>>();
@@ -35,14 +38,16 @@ Autor &Autor::operator=(const Autor &copie) {
     return *this;
 }
 
-std::ostream & operator<<(std::ostream & os, const Autor & autor){
-    os << "Nume autor: " << autor.numeAutor << "\n   Opere:\n";
-    for(const auto & opera : autor.opere)
-        os << '\t' << *opera;
-    return os;
-}
+//template<typename T>
+//std::ostream & operator<<(std::ostream & os, const Autor<T>& autor){
+//    os << "Nume autor: " << autor.numeAutor << "\n   Opere:\n";
+//    for(const auto & opera : autor.opere)
+//        os << '\t' << *opera;
+//    return os;
+//}
 
-void Autor::adaugaCarte(const Carte& carte) {
+template<typename T>
+void Autor<T>::adaugaCarte(const Carte& carte) {
     opere.push_back(carte.clone());
 
     std::ofstream out;
@@ -56,3 +61,5 @@ void Autor::adaugaCarte(const Carte& carte) {
 
     out.close();
 }
+
+template class Autor<std::string>;

@@ -9,18 +9,22 @@
 
 #include "Carte.h"
 
+//template<typename T> class Autor;
+//template<typename T> std::ostream& operator<<(std::ostream os, Autor<T>& autor);
+
+template<typename T>
 class Autor {
 private:
-    std::string numeAutor;
+    T numeAutor;
     std::vector<std::shared_ptr<Carte>> opere;
 public:
-    Autor(const std::string & numeAutor);
-    Autor(const std::string & numeAutor, const std::vector<std::shared_ptr<Carte>> & opere);
-    Autor(const Autor & copie);
+    Autor(const T & numeAutor);
+    Autor(const T & numeAutor, const std::vector<std::shared_ptr<Carte>> & opere);
+    Autor(const Autor<T> & copie);
     Autor & operator=(const Autor & copie);
     ~Autor() = default;
 
-    friend std::ostream & operator<<(std::ostream & os, const Autor & autor);
+//    friend std::ostream & operator<< <T>(std::ostream & os, const Autor<T>& autor);
 
     void adaugaCarte(const Carte& carte);
 };
