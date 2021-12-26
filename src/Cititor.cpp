@@ -2,22 +2,54 @@
 
 int Cititor::id_max = 1;
 
-Cititor::Cititor(const std::string & nume, const std::string & prenume) : id(id_max), nume(nume), prenume(prenume) {
+Cititor::Cititor(const std::string &nume, const std::string &prenume, int varsta, const std::string &strada) : id(id_max), nume(nume), prenume(prenume), varsta(varsta), strada(strada) {
     id_max++;
 }
 
 std::ostream & operator<<(std::ostream & os, const Cititor & cititor) {
     if (cititor.cartiImprumutate.empty()){
-        os << "Cititorul " << cititor.id << ":" << cititor.nume << " " << cititor.prenume << " nu a imprumutat nicio carte!" << '\n';
+        os << "Cititorul " << cititor.id << ": " << cititor.nume << " " << cititor.prenume << " cu varsta de " << cititor.varsta << " de ani, care locuieste pe strada " << cititor.strada << " nu a imprumutat nicio carte!" << '\n';
     } else if (cititor.cartiImprumutate.size() == 1) {
-        os << "Cititorul " << cititor.id << ":" << cititor.nume << " " << cititor.prenume << " a imprumutat o carte:\n";
+        os << "Cititorul " << cititor.id << ": " << cititor.nume << " " << cititor.prenume << " cu varsta de " << cititor.varsta << " de ani, care locuieste pe strada " << cititor.strada << " a imprumutat o carte:\n";
         os << "\t-" << cititor.cartiImprumutate[0]->get_numeCarte() << '\n';
     } else {
-        os << "Cititorul " << cititor.id << ":" << cititor.nume << " " << cititor.prenume << " a imprumutat " << cititor.cartiImprumutate.size() << " carti:\n";
+        os << "Cititorul " << cititor.id << ": " << cititor.nume << " " << cititor.prenume << " cu varsta de " << cititor.varsta << " de ani, care locuieste pe strada " << cititor.strada << " a imprumutat " << cititor.cartiImprumutate.size() << " carti:\n";
         for(int i=0; i<(int)cititor.cartiImprumutate.size(); i++)
             os << "\t-" << cititor.cartiImprumutate[i]->get_numeCarte() << '\n';
     }
     return os;
+}
+
+void Cititor::setNume(const std::string &nume) {
+    Cititor::nume = nume;
+}
+
+const std::string &Cititor::getNume() const {
+    return nume;
+}
+
+void Cititor::setPrenume(const std::string &prenume) {
+    Cititor::prenume = prenume;
+}
+
+const std::string &Cititor::getPrenume() const {
+    return prenume;
+}
+
+void Cititor::setVarsta(int varsta) {
+    Cititor::varsta = varsta;
+}
+
+int Cititor::getVarsta() const {
+    return varsta;
+}
+
+void Cititor::setStrada(const std::string &strada) {
+    Cititor::strada = strada;
+}
+
+const std::string &Cititor::getStrada() const {
+    return strada;
 }
 
 void Cititor::imprumuta(Carte & carte) {
@@ -88,10 +120,6 @@ bool Cititor::verificaRezervare(const Carte &carte) {
     return !rezervatDeAltcineva && rezervatFaraPrioritate;
 }
 
-int Cititor::getIdMax() {
-    return id_max;
-}
-
 std::vector<CarteIndexata> Cititor::cauta(std::vector<Filtru> filtre) {
     std::vector<CarteIndexata> rezultat;
 
@@ -123,8 +151,8 @@ std::vector<CarteIndexata> Cititor::cauta(std::vector<Filtru> filtre) {
         }
     } while(!filtre.empty());
 
-        if(rezultat.empty())
-            std::cout << "Obiectul cautat nu exista";
+    if(rezultat.empty())
+        std::cout << "Obiectul cautat nu exista";
 
     return rezultat;
 }

@@ -1,12 +1,13 @@
 #include <iostream>
 
 #include "headers/Autor.h"
-#include "headers/Cititor.h"
 #include "headers/VolumPoezii.h"
 #include "headers/Roman.h"
 #include "headers/Nuvela.h"
 #include "headers/PiesaDeTeatru.h"
 #include "headers/EroareFiltru.h"
+#include "headers/Cititor.h"
+#include "headers/CititorBuilder.h"
 
 int main() {
 
@@ -32,7 +33,13 @@ int main() {
 //    std::cout << a1 << '\n';
 //    std::cout << v1 << '\n';
 
-    Cititor A{"Ion", "Andrei"};
+    CititorBuilder builder;
+
+    Cititor A = builder.adaugaNume("Ion")
+            .adaugaPrenume("Andrei")
+            .adaugaVarsta(18)
+            .adaugaStrada("Bulevardul Republicii 12")
+            .build();
 //    A.imprumuta(c1);
     A.imprumuta(c2);
 //    std::cout << A << '\n';
@@ -40,11 +47,19 @@ int main() {
     A.returneaza(c2);
 //    std::cout << A << '\n';
 
-    Cititor B{"Ana", "Maria"};
+    Cititor B = builder.adaugaNume("Ana")
+            .adaugaPrenume("Maria")
+            .adaugaVarsta(35)
+            .adaugaStrada("Bulevardul Independentei 43")
+            .build();
     B.imprumuta(c3);
     std::cout << B << '\n';
 
-    Cititor C{"Andreea", "Ionescu"};
+    Cititor C = builder.adaugaNume("Andreea")
+            .adaugaPrenume("Ionescu")
+            .adaugaVarsta(75)
+            .adaugaStrada("Dealu cu piatra 20")
+            .build();
     C.imprumuta(c3);
     std::cout << C << '\n';
 

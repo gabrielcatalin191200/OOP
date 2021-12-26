@@ -21,10 +21,10 @@ public:
     Autor(const T & numeAutor);
     Autor(const T & numeAutor, const std::vector<std::shared_ptr<Carte>> & opere);
     Autor(const Autor<T> & copie);
-    Autor & operator=(const Autor & copie);
+    Autor & operator=(const Autor<T> & copie);
     ~Autor() = default;
 
-//    friend std::ostream & operator<< <T>(std::ostream & os, const Autor<T>& autor);
+//    friend std::ostream & operator<< <>(std::ostream &, const Autor<T>&);
 
     void adaugaCarte(const Carte& carte);
 };

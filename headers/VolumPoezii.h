@@ -15,7 +15,7 @@ public:
     VolumPoezii(const std::string &numeCarte, const std::string &gen, int anAparitie, const std::vector<Poezie> &poezii);
     ~VolumPoezii() override;
 
-//    friend std::ostream &operator<<(std::ostream& os, const VolumPoezii& volum);
+    friend std::ostream &operator<<(std::ostream& os, const VolumPoezii& volum);
 
     void adaugaPoezie(const Poezie &poezie);
 

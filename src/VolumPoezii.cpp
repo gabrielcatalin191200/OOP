@@ -14,12 +14,12 @@ VolumPoezii::~VolumPoezii() {
 //    std::cout << "Destructor VolumPoezii";
 }
 
-//std::ostream &operator<<(std::ostream& os, const VolumPoezii& volum) {
-//    volum.afis(os);
-//    return os;
-//}
+std::ostream &operator<<(std::ostream& os, const VolumPoezii& volum) {
+    volum.afis(os);
+    return os;
+}
 
-void VolumPoezii::adaugaPoezie(const Poezie &poezie) {
+void VolumPoezii::adaugaPoezie(const Poezie& poezie) {
     poezii.push_back(poezie);
 }
 
