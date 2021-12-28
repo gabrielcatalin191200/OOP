@@ -40,8 +40,8 @@ Autor<T> &Autor<T>::operator=(const Autor<T> &copie) {
 
 template<typename T>
 std::ostream & operator<<(std::ostream & os, const Autor<T>& autor){
-    os << "Nume autor: " << autor.numeAutor() << "\n   Opere:\n";
-    for(const auto & opera : autor.opere())
+    os << "Nume autor: " << autor.numeAutor << "\n   Opere:\n";
+    for(const auto & opera : autor.opere)
         os << '\t' << *opera;
     return os;
 }

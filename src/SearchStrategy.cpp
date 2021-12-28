@@ -1,49 +1,26 @@
 #include "../headers/SearchStrategy.h"
 
-std::vector<CarteIndexata> CautareNumeAutor::Cautare(std::string keyWord, std::vector<CarteIndexata> &rezultat) {
-    std::vector<CarteIndexata> temp;
-
-    for(auto & i : rezultat) {
-        if(i.getNumeAutorI() == keyWord)
-            temp.push_back(i);
-    }
-
-    return temp;
+bool CautareNumeCarte::match(const CarteIndexata& carte, const std::string& keyword) {
+    return carte.getNumeCarteI() == keyword;
 }
 
-std::vector<CarteIndexata> CautareNumeCarte::Cautare(std::string keyWord, std::vector<CarteIndexata> &rezultat) {
-    std::vector<CarteIndexata> temp;
-
-    for(auto & i : rezultat) {
-        if(i.getNumeCarteI() == keyWord)
-            temp.push_back(i);
-    }
-
-    return temp;
+bool CautareNumeAutor::match(const CarteIndexata& carte, const std::string& keyword) {
+    return carte.getNumeAutorI() == keyword;
 }
 
-std::vector<CarteIndexata> CautareAnAparitie::Cautare(std::string keyWord, std::vector<CarteIndexata> &rezultat) {
-    std::vector<CarteIndexata> temp;
-
-    for(auto & i : rezultat) {
-        if(i.getAnAparitieI() == keyWord)
-            temp.push_back(i);
-    }
-
-    return temp;
+bool CautareAnAparitie::match(const CarteIndexata& carte, const std::string& keyword) {
+    return carte.getAnAparitieI() == keyword;
 }
 
-std::vector<CarteIndexata> CautareGen::Cautare(std::string keyWord, std::vector<CarteIndexata> &rezultat) {
-    std::vector<CarteIndexata> temp;
-
-    for(auto & i : rezultat) {
-        if(i.getGenI() == keyWord)
-            temp.push_back(i);
-    }
-
-    return temp;
+bool CautareGen::match(const CarteIndexata& carte, const std::string& keyword) {
+    return carte.getGenI() == keyword;
 }
 
-SearchStrategy::~SearchStrategy() {
-
+std::vector<CarteIndexata> SearchStrategy::Cautare(const std::string& keyWord, std::vector<CarteIndexata> &rezultat) {
+    std::vector<CarteIndexata> temp;
+    for(const auto& i:rezultat) {
+        if(match(i, keyWord))
+            temp.push_back(i);
+    }
+    return temp;
 }
