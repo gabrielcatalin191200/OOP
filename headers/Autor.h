@@ -9,8 +9,8 @@
 
 #include "Carte.h"
 
-//template<typename T> class Autor;
-//template<typename T> std::ostream& operator<<(std::ostream os, Autor<T>& autor);
+template<typename T> class Autor;
+template<typename T> std::ostream& operator<<(std::ostream& os, const Autor<T>& autor);
 
 template<typename T>
 class Autor {
@@ -24,7 +24,7 @@ public:
     Autor & operator=(const Autor<T> & copie);
     ~Autor() = default;
 
-//    friend std::ostream & operator<< <>(std::ostream &, const Autor<T>&);
+    friend std::ostream & operator<< <>(std::ostream & os, const Autor<T>& autor);
 
     void adaugaCarte(const Carte& carte);
 };

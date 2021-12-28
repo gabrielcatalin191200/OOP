@@ -16,7 +16,7 @@ public:
     CititorBuilder& adaugaPrenume(const std::string& prenume);
     CititorBuilder& adaugaVarsta(int varsta);
     CititorBuilder& adaugaStrada(const std::string& strada);
-    Cititor& build();
+    Cititor build();
 
 };
 

@@ -38,13 +38,13 @@ Autor<T> &Autor<T>::operator=(const Autor<T> &copie) {
     return *this;
 }
 
-//template<typename T>
-//std::ostream & operator<<(std::ostream & os, const Autor<T>& autor){
-//    os << "Nume autor: " << autor.numeAutor << "\n   Opere:\n";
-//    for(const auto & opera : autor.opere)
-//        os << '\t' << *opera;
-//    return os;
-//}
+template<typename T>
+std::ostream & operator<<(std::ostream & os, const Autor<T>& autor){
+    os << "Nume autor: " << autor.numeAutor() << "\n   Opere:\n";
+    for(const auto & opera : autor.opere())
+        os << '\t' << *opera;
+    return os;
+}
 
 template<typename T>
 void Autor<T>::adaugaCarte(const Carte& carte) {
@@ -62,4 +62,5 @@ void Autor<T>::adaugaCarte(const Carte& carte) {
     out.close();
 }
 
+template std::ostream &operator<< <>(std::ostream& os, const Autor<std::string>& autor);
 template class Autor<std::string>;

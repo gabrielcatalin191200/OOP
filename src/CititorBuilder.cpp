@@ -2,28 +2,27 @@
 
 CititorBuilder::CititorBuilder() {}
 
-CititorBuilder &CititorBuilder::adaugaNume(const std::string &nume) {
+CititorBuilder& CititorBuilder::adaugaNume(const std::string &nume) {
     this->nume = nume;
     return *this;
 }
 
-CititorBuilder &CititorBuilder::adaugaPrenume(const std::string &prenume) {
+CititorBuilder& CititorBuilder::adaugaPrenume(const std::string &prenume) {
     this->prenume = prenume;
     return *this;
 }
 
-CititorBuilder &CititorBuilder::adaugaVarsta(int varsta) {
+CititorBuilder& CititorBuilder::adaugaVarsta(int varsta) {
     this->varsta = varsta;
     return *this;
 }
 
-CititorBuilder &CititorBuilder::adaugaStrada(const std::string &strada) {
+CititorBuilder& CititorBuilder::adaugaStrada(const std::string &strada) {
     this->strada = strada;
     return *this;
 }
 
-Cititor &CititorBuilder::build() {
-    Cititor* cititor = new Cititor(nume, prenume, varsta, strada);
-    return *cititor;
+Cititor CititorBuilder::build() {
+    return Cititor(nume, prenume, varsta, strada);
 }
 
